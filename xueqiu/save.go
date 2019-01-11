@@ -54,6 +54,49 @@ func InstallPrice(symbol string, item Item) (int64, error) {
 	return 0, errdb
 }
 
+func ICommPriCha(symbol string, comment_count int, stock_price float32, date_time string, c_type int64) (int64, error) {
+	db, err := sql.Open("mysql", user+":"+passwd+"@/goStock")
+
+	if err != nil {
+		return 0, err
+	}
+
+	defer db.Close()
+
+	//to do query is have
+	var id int64
+	errdb := db.QueryRow("SELECT id FROM comment_count_price_charet WHERE date_time = ? AND symbol = ? AND type = ? ", date_time, symbol, c_type).Scan(&id)
+
+	//没有数据插入数据
+	if errdb == sql.ErrNoRows {
+		stmt, err := db.Prepare("INSERT INTO `comment_count_price_charet` (`symbol`, `comment_count`, `stock_price`, `type`, `date_time`, `created_at`) VALUES (?,?,?,?,?,?);")
+		if err != nil {
+			return 0, err
+		}
+
+		created_at := time.Now().Format("2006-01-02 15:04:05")
+		result, err := stmt.Exec(symbol, comment_count, stock_price, c_type, date_time, created_at)
+		if err != nil {
+			return 0, err
+		}
+
+		id, err := result.LastInsertId()
+
+		if err != nil {
+			return 0, err
+		}
+
+		return id, err
+	}
+
+	if errdb != nil {
+		return 0, errdb
+	}
+
+	return 0, errdb
+}
+
+
 // isntall comment_count_price_charet for sql type:day,hour,year
 func InstallCommentpricecha(symbol string, comment_count int, stock_price float32, date_time string, c_type string) (int64, error) {
 	db, err := sql.Open("mysql", user+":"+passwd+"@/goStock")

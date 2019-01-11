@@ -21,7 +21,7 @@ func main() {
 
 	fmt.Printf("名称: %s\n", symbol)
 	// for true {
-	t := time.Now()
+
 
 	//获取价格信息
 	quote, err := xueqiu.Getquote(symbol)
@@ -73,44 +73,56 @@ func main() {
 		}
 	}
 
-	//插入上一每分钟统计
+	id, err := icountcomment(60, symbol, quote.Current);
 
-	//插入上一个每小时统计
-	m_ct := time.Unix(t.Unix()-60, 0)
-	m_created_at := m_ct.Format("2006-01-02 15:04:01")
-	m_ft := time.Unix(t.Unix(), 0)
-	m_created_ft := m_ft.Format("2006-01-02 15:04:01")
-
-	comment_count, err := xueqiu.CountComment(m_created_at, m_created_ft)
-
-	id, err := xueqiu.InstallCommentpricecha(symbol, comment_count, quote.Current, m_created_at, "m")
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
-	if id != 0 {
+	id_tm, err := icountcomment(600, symbol, quote.Current);
 
-	}
-
-	//插入上一个每小时统计
-	h_ct := time.Unix(t.Unix()-3600, 0)
-	h_created_at := h_ct.Format("2006-01-02 15:00:01")
-	h_ft := time.Unix(t.Unix(), 0)
-	h_created_ft := h_ft.Format("2006-01-02 15:00:01")
-
-	comment_count_h, err := xueqiu.CountComment(h_created_at, h_created_ft)
-
-	h_id, err := xueqiu.InstallCommentpricecha(symbol, comment_count_h, quote.Current, h_created_at, "h")
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
-	if h_id != 0 {
+	id_hh, err := icountcomment(1800, symbol, quote.Current);
 
+	if err != nil {
+		fmt.Println(err)
+		return
 	}
 
-	time.Sleep(time.Duration(1) * time.Second)
-	// }
+	id_h, err := icountcomment(3600, symbol, quote.Current);
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Printf("统计类别结果: %d,%d,%d,%d\n", id, id_tm, id_hh, id_h)
+	return
 }
+
+
+func icountcomment(b_time int64, symbol string, price float32) (int64, error) {
+	if b_time < 60 {
+		b_time = 60
+	}
+
+	t := time.Now()
+	//插入每30分钟统计
+	ct := time.Unix(t.Unix()-b_time, 0)
+	ct = time.Unix((ct.Unix()/b_time) * b_time, 0)//取整半小时
+	created_at := ct.Format("2006-01-02 15:04:01")
+	ft := time.Unix(ct.Unix() + b_time, 0)//结束时间
+	created_ft := ft.Format("2006-01-02 15:04:01")
+
+	comment_count, err := xueqiu.CountComment(created_at, created_ft)
+	id, err := xueqiu.ICommPriCha(symbol, comment_count, price, created_at, b_time)
+	if err != nil {
+		return 0, err
+	}
+
+	return id, err
+}
+
