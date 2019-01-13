@@ -184,7 +184,7 @@ func InstallComment(comment Comment, symbol string) (int64, error) {
 
 }
 
-func CountComment(starttime string, endtime string, symbol string) (int, error) {
+func CountComment(symbol string, starttime string, endtime string) (int, error) {
 	db, err := sql.Open("mysql", user+":"+passwd+"@/goStock")
 
 	if err != nil {

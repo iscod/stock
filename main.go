@@ -124,6 +124,9 @@ func icountcomment(b_time int64, symbol string, price float32) (int64, error) {
 	created_ft := ft.Format("2006-01-02 15:04:01")
 
 	comment_count, err := xueqiu.CountComment(symbol, created_at, created_ft)
+
+	fmt.Println(comment_count)
+
 	id, err := xueqiu.ICommPriCha(symbol, comment_count, price, created_at, b_time)
 	if err != nil {
 		return 0, err
