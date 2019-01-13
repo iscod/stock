@@ -184,7 +184,7 @@ func InstallComment(comment Comment, symbol string) (int64, error) {
 
 }
 
-func CountComment(starttime string, endtime string) (int, error) {
+func CountComment(starttime string, endtime string, symbol string) (int, error) {
 	db, err := sql.Open("mysql", user+":"+passwd+"@/goStock")
 
 	if err != nil {
@@ -193,7 +193,7 @@ func CountComment(starttime string, endtime string) (int, error) {
 
 	defer db.Close()
 
-	result, err := db.Query("select count(*) as c from goStock.comment where created_at >= ? and created_at <= ?;", starttime, endtime)
+	result, err := db.Query("select count(*) as c from goStock.comment where symbol = ? and created_at >= ? and created_at <= ?;", symbol, starttime, endtime)
 	if err != nil {
 		return 0, err
 	}
