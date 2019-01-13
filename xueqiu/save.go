@@ -96,7 +96,6 @@ func ICommPriCha(symbol string, comment_count int, stock_price float32, date_tim
 	return 0, errdb
 }
 
-
 // isntall comment_count_price_charet for sql type:day,hour,year
 func InstallCommentpricecha(symbol string, comment_count int, stock_price float32, date_time string, c_type string) (int64, error) {
 	db, err := sql.Open("mysql", user+":"+passwd+"@/goStock")

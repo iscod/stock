@@ -22,7 +22,6 @@ func main() {
 	fmt.Printf("名称: %s\n", symbol)
 	// for true {
 
-
 	//获取价格信息
 	quote, err := xueqiu.Getquote(symbol)
 
@@ -73,36 +72,43 @@ func main() {
 		}
 	}
 
-	id, err := icountcomment(60, symbol, quote.Current);
+	id, err := icountcomment(60, symbol, quote.Current)
 
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
-	id_tm, err := icountcomment(600, symbol, quote.Current);
+	id_tm, err := icountcomment(600, symbol, quote.Current)
 
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
-	id_hh, err := icountcomment(1800, symbol, quote.Current);
+	id_hh, err := icountcomment(1800, symbol, quote.Current)
 
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
-	id_h, err := icountcomment(3600, symbol, quote.Current);
+	id_h, err := icountcomment(3600, symbol, quote.Current)
 	if err != nil {
 		fmt.Println(err)
+		return
 	}
 
 	fmt.Printf("统计类别结果: %d,%d,%d,%d\n", id, id_tm, id_hh, id_h)
+
+	id_d, err := icountcomment(86400, symbol, quote.Current)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Printf("统计类别结果: %d,%d,%d,%d, %d\n", id, id_tm, id_hh, id_h, id_d)
 	return
 }
-
 
 func icountcomment(b_time int64, symbol string, price float32) (int64, error) {
 	if b_time < 60 {
@@ -112,9 +118,9 @@ func icountcomment(b_time int64, symbol string, price float32) (int64, error) {
 	t := time.Now()
 	//插入每30分钟统计
 	ct := time.Unix(t.Unix()-b_time, 0)
-	ct = time.Unix((ct.Unix()/b_time) * b_time, 0)//取整半小时
+	ct = time.Unix((ct.Unix()/b_time)*b_time, 0) //取整半小时
 	created_at := ct.Format("2006-01-02 15:04:01")
-	ft := time.Unix(ct.Unix() + b_time, 0)//结束时间
+	ft := time.Unix(ct.Unix()+b_time, 0) //结束时间
 	created_ft := ft.Format("2006-01-02 15:04:01")
 
 	comment_count, err := xueqiu.CountComment(created_at, created_ft)
@@ -125,4 +131,3 @@ func icountcomment(b_time int64, symbol string, price float32) (int64, error) {
 
 	return id, err
 }
-
