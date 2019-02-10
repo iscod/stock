@@ -8,72 +8,6 @@ import "encoding/json"
 
 var quteuri = "/v5/stock/quote.json?extend=detail&symbol="
 
-//价格获取接口 get QuoteMessage
-func GetQuoteMessage(symbol string) (QuoteMessage, error) {
-	var quotemessage QuoteMessage
-	url := stockhost + quteuri + symbol
-	cookie, err := GetCookie()
-
-	if err != nil {
-		return quotemessage, err
-	}
-
-	client := &http.Client{}
-	req, err := http.NewRequest("GET", url, nil)
-	for i := 0; i < len(cookie); i++ {
-		req.AddCookie(cookie[i])
-	}
-
-	resp, err := client.Do(req)
-
-	defer resp.Body.Close()
-
-	if err != nil {
-		return quotemessage, err
-	}
-
-	dec := json.NewDecoder(resp.Body)
-
-	if err != nil {
-		return quotemessage, err
-	}
-
-	for {
-		var m QuoteMessage
-		if err := dec.Decode(&m); err == io.EOF {
-			break
-		} else if err != nil {
-			return quotemessage, err
-		}
-
-		quotemessage = m
-	}
-
-	return quotemessage, nil
-}
-
-//价格获取接口 get quote
-func Getquote(symbol string) (Quote, error) {
-	quotemessage, err := GetQuoteMessage(symbol)
-
-	if err != nil {
-		return quotemessage.Data.Quote, err
-	}
-
-	return quotemessage.Data.Quote, nil
-}
-
-//价格获取接口 get quote
-func Getmarket(symbol string) (Market, error) {
-	quotemessage, err := GetQuoteMessage(symbol)
-
-	if err != nil {
-		return quotemessage.Data.Market, err
-	}
-
-	return quotemessage.Data.Market, nil
-}
-
 //A QuoteMessage for quote.json
 //    See https://stock.xueqiu.com/v5/stock/quote.json?symbol=SZ000651&extend=detail
 type QuoteMessage struct {
@@ -142,4 +76,70 @@ type Quote struct {
 	// Total_shares    int    //总股本
 	// string_shares   string //流通股本
 	// status          int
+}
+
+//价格获取接口 get QuoteMessage
+func GetQuoteMessage(symbol string) (QuoteMessage, error) {
+	var quotemessage QuoteMessage
+	url := stockhost + quteuri + symbol
+	cookie, err := GetCookie()
+
+	if err != nil {
+		return quotemessage, err
+	}
+
+	client := &http.Client{}
+	req, err := http.NewRequest("GET", url, nil)
+	for i := 0; i < len(cookie); i++ {
+		req.AddCookie(cookie[i])
+	}
+
+	resp, err := client.Do(req)
+
+	defer resp.Body.Close()
+
+	if err != nil {
+		return quotemessage, err
+	}
+
+	dec := json.NewDecoder(resp.Body)
+
+	if err != nil {
+		return quotemessage, err
+	}
+
+	for {
+		var m QuoteMessage
+		if err := dec.Decode(&m); err == io.EOF {
+			break
+		} else if err != nil {
+			return quotemessage, err
+		}
+
+		quotemessage = m
+	}
+
+	return quotemessage, nil
+}
+
+//价格获取接口 get quote
+func Getquote(symbol string) (Quote, error) {
+	quotemessage, err := GetQuoteMessage(symbol)
+
+	if err != nil {
+		return quotemessage.Data.Quote, err
+	}
+
+	return quotemessage.Data.Quote, nil
+}
+
+//价格获取接口 get quote
+func Getmarket(symbol string) (Market, error) {
+	quotemessage, err := GetQuoteMessage(symbol)
+
+	if err != nil {
+		return quotemessage.Data.Market, err
+	}
+
+	return quotemessage.Data.Market, nil
 }

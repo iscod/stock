@@ -33,7 +33,7 @@ func main() {
 	fmt.Printf("当前价格: %f, 开盘价: %f, 均价: %f, 当天最低: %f, 当天最高: %f\n", quote.Current, quote.Open, quote.Avg_price, quote.Low, quote.High)
 
 	//获取评论
-	comments, err := xueqiu.GetComments(symbol)
+	comments, err := xueqiu.Getcomment(symbol)
 
 	if err != nil {
 		fmt.Println(err)
