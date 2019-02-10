@@ -1,8 +1,8 @@
 # goStock
 
-Collect Comment and Generate Charet for xueqiu stock
+Get, Save for xueqiu.com comment message and price
 
-Is Dynamic for time 
+you use [chart](https://www.chartjs.org) Generate Chare
 
 ### image for web
 
@@ -10,11 +10,10 @@ Is Dynamic for time
 
 ### Rely
 
-Rely on [goMoney](https://github.com/IsCod/goMoney) for for web 
+Rely on [chart](https://www.chartjs.org)
 
-### use 
+### Doc 
 
 ```sh
-go run main.go
+go doc xueqiu
 ```
-
