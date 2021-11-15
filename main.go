@@ -1,10 +1,15 @@
 package main
 
+import (
+	"flag"
+	"gorm.io/gorm"
+)
 import "fmt"
-import "flag"
 import "os"
-import "xueqiu"
 import "time"
+
+const host string = "https://xueqiu.com"
+const stockhost string = "https://stock.xueqiu.com"
 
 func usage() {
 	fmt.Fprintf(os.Stderr, "Usage of %s:\n", os.Args[0])
@@ -23,7 +28,7 @@ func main() {
 	// for true {
 
 	//获取价格信息
-	quote, err := xueqiu.Getquote(symbol)
+	quote, err := Getquote(symbol)
 
 	if err != nil {
 		fmt.Println(err)
@@ -33,7 +38,7 @@ func main() {
 	fmt.Printf("当前价格: %f, 开盘价: %f, 均价: %f, 当天最低: %f, 当天最高: %f\n", quote.Current, quote.Open, quote.Avg_price, quote.Low, quote.High)
 
 	//获取评论
-	comments, err := xueqiu.Getcomment(symbol)
+	comments, err := GetComment(symbol)
 
 	if err != nil {
 		fmt.Println(err)
@@ -41,23 +46,23 @@ func main() {
 	}
 
 	//保存评论
-	for _, value := range comments {
-		t := time.Unix(value.Created_at/1000, 0)
-		created_at := t.Format("2006-01-02 15:04:05")
-		id, err := xueqiu.InstallComment(value, symbol)
+	for _, comment := range comments {
+		t := time.Unix(comment.CreatedAt/1000, 0)
+		createdAt := t.Format("2006-01-02 15:04:05")
+
+		id, err := InstallComment(comment, symbol)
 		if err != nil {
 			fmt.Println(err)
 			return
 		}
 
-		if id != 0 {
-			fmt.Printf("New Comment List:\n")
-			fmt.Printf(" Username : %s,title: %s, Time: %s\n", value.User.Screen_name, value.Title, created_at)
+		if comment.Id != 0 {
+			fmt.Printf("New Comment Username : %s,title: %s, Time: %s,  %s\n", comment.User.ScreenName, comment.Title, createdAt, comment.Type)
 		}
 	}
 
 	// //获取价格图表
-	chart, err := xueqiu.Getchart(symbol)
+	chart, err := Getchart(symbol)
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -65,49 +70,49 @@ func main() {
 
 	//插入股价
 	for _, value := range chart.Items {
-		_, err := xueqiu.InstallPrice(symbol, value)
+		_, err := InstallPrice(symbol, value)
 		if err != nil {
 			fmt.Println(err)
 			return
 		}
 	}
 
-	id, err := icountcomment(60, symbol, quote.Current)
-
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-
-	id_tm, err := icountcomment(600, symbol, quote.Current)
-
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-
-	id_hh, err := icountcomment(1800, symbol, quote.Current)
-
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-
-	id_h, err := icountcomment(3600, symbol, quote.Current)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-
-	fmt.Printf("统计类别结果: %d,%d,%d,%d\n", id, id_tm, id_hh, id_h)
-
-	id_d, err := icountcomment(86400, symbol, quote.Current)
-	if err != nil {
-		fmt.Println(err)
-	}
-
-	fmt.Printf("统计类别结果: %d,%d,%d,%d, %d\n", id, id_tm, id_hh, id_h, id_d)
-	return
+	//id, err := icountcomment(60, symbol, quote.Current)
+	//
+	//if err != nil {
+	//	fmt.Println(err)
+	//	return
+	//}
+	//
+	//id_tm, err := icountcomment(600, symbol, quote.Current)
+	//
+	//if err != nil {
+	//	fmt.Println(err)
+	//	return
+	//}
+	//
+	//id_hh, err := icountcomment(1800, symbol, quote.Current)
+	//
+	//if err != nil {
+	//	fmt.Println(err)
+	//	return
+	//}
+	//
+	//id_h, err := icountcomment(3600, symbol, quote.Current)
+	//if err != nil {
+	//	fmt.Println(err)
+	//	return
+	//}
+	//
+	//fmt.Printf("统计类别结果: %d,%d,%d,%d\n", id, id_tm, id_hh, id_h)
+	//
+	//id_d, err := icountcomment(86400, symbol, quote.Current)
+	//if err != nil {
+	//	fmt.Println(err)
+	//}
+	//
+	//fmt.Printf("统计类别结果: %d,%d,%d,%d, %d\n", id, id_tm, id_hh, id_h, id_d)
+	//return
 }
 
 func icountcomment(b_time int64, symbol string, price float32) (int64, error) {
@@ -123,11 +128,11 @@ func icountcomment(b_time int64, symbol string, price float32) (int64, error) {
 	ft := time.Unix(ct.Unix()+b_time, 0) //结束时间
 	created_ft := ft.Format("2006-01-02 15:04:01")
 
-	comment_count, err := xueqiu.CountComment(symbol, created_at, created_ft)
+	comment_count, err := CountComment(symbol, created_at, created_ft)
 
 	fmt.Println(comment_count)
 
-	id, err := xueqiu.ICommPriCha(symbol, comment_count, price, created_at, b_time)
+	id, err := ICommPriCha(symbol, comment_count, price, created_at, b_time)
 	if err != nil {
 		return 0, err
 	}
