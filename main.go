@@ -32,13 +32,13 @@ func main() {
 		for _, symbol := range symbols {
 			now := time.Now()
 			go run(symbol.Symbol, db)
-			if now.Hour() == 16 && now.Minute() == 1 {
+			if now.Hour() == 16{
 				go func() {
 					chart.Run(symbol.Symbol, db)
 				}()
 
 			}
-			if time.Now().Hour() == 1 && now.Minute() == 1 {
+			if time.Now().Hour() == 1 {
 				go func() {
 					price.Run(symbol.Symbol, db)
 				}()
