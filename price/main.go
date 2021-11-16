@@ -52,19 +52,4 @@ func run(symbol string, db *gorm.DB) {
 		fmt.Printf("%s", err)
 		return
 	}
-
-	endTime := time.Now()
-	startTime := time.Unix(endTime.Unix()-int64(time.Hour.Seconds()*24), 0)
-
-	c, err := model.CountComment(symbol, startTime, endTime, db)
-	if err != nil {
-		fmt.Printf("Comment err : %s", err)
-	}
-
-	quote.CommentCount = c
-	err = db.Updates(quote).Error
-
-	if err != nil {
-		fmt.Printf("%s", err)
-	}
 }

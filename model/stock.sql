@@ -11,6 +11,7 @@ CREATE TABLE `comment` (
   `symbol` varchar(128) DEFAULT NULL,
   `user_id` bigint(20) unsigned DEFAULT '0',
   `title` varchar(256) NOT NULL DEFAULT '',
+  `description` text NOT NULL,
   `source` varchar(128) NOT NULL DEFAULT '',
   `text` text NOT NULL,
   `user` text NOT NULL,
@@ -19,7 +20,7 @@ CREATE TABLE `comment` (
   `created_at` bigint(20) unsigned NOT NULL,
   `updated_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=203208750 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4
 
 CREATE TABLE `quote` (
   `id` int(11) NOT NULL AUTO_INCREMENT,

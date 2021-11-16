@@ -16,6 +16,7 @@ type Comment struct {
 	UserId int    `json:"user_id"` //用户ID
 	Title  string `json:"title"`   //标题
 	Source string `json:"source"`  //来源
+	Description string `json:"description"`
 	Text   string `json:"text"`    //正文
 	//Type      string    `json:"type"`
 	ViewCount int       `json:"view_count"`
