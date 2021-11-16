@@ -126,7 +126,7 @@ try {
 		<ul>
 		<?php
 		foreach ($symbols as $key => $value) {
-			echo '<li><a href="a.php?s='.$value['symbol'] . '">' . $value['name'] . '</a></li>';
+			echo '<li><a href="index.php?s='.$value['symbol'] . '">' . $value['name'] . '</a></li>';
 		}
 		?>
 		</ul>
