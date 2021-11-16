@@ -32,13 +32,13 @@ func main() {
 		for _, symbol := range symbols {
 			now := time.Now()
 			go run(symbol.Symbol, db)
-			if now.Hour() == 16{
+			if now.Hour() == 16 {
 				go func() {
 					chart.Run(symbol.Symbol, db)
 				}()
 
 			}
-			if time.Now().Hour() == 1 {
+			if time.Now().Hour() == 16 {
 				go func() {
 					price.Run(symbol.Symbol, db)
 				}()
@@ -73,6 +73,9 @@ func run(symbol string, db *gorm.DB) {
 	for _, comment := range comments {
 		if comment.Id != 0 {
 			fmt.Printf("New Comment Username : %s,title: %s, Time: ,  %\n", comment.User.ScreenName, comment.Title)
+		}
+		if comment.UserId < 0 {
+			comment.UserId = 0
 		}
 		comment.Symbol = symbol
 		comment.CreatedAt = comment.CreatedAt / 1000
