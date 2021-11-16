@@ -1,4 +1,4 @@
-package main
+package price
 
 import (
 	"fmt"
@@ -8,28 +8,7 @@ import (
 	"time"
 )
 
-func main() {
-
-	db, err := model.InitDb()
-	if err != nil {
-		fmt.Printf("%s", err)
-		return
-	}
-
-	var symbols []*model.Symbol
-	err = db.Where("status > ?", 0).Find(&symbols).Error
-
-	if err != nil {
-		fmt.Printf("Error: %s", err)
-		return
-	}
-
-	for _, symbol := range symbols {
-		run(symbol.Symbol, db)
-	}
-}
-
-func run(symbol string, db *gorm.DB) {
+func Run(symbol string, db *gorm.DB) {
 	fmt.Printf("名称: %s\n", symbol)
 
 	//获取价格信息

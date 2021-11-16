@@ -2,8 +2,11 @@ package main
 
 import (
 	"github.com/iscod/goStock/base"
+	"github.com/iscod/goStock/chart"
 	"github.com/iscod/goStock/model"
+	"github.com/iscod/goStock/price"
 	"gorm.io/gorm"
+	"time"
 )
 import "fmt"
 
@@ -17,16 +20,32 @@ func main() {
 		return
 	}
 
-	var symbols []*model.Symbol
-	err = db.Where("status > ?", 0).Find(&symbols).Error
+	for true {
+		var symbols []*model.Symbol
+		err = db.Where("status > ?", 0).Find(&symbols).Error
 
-	if err != nil {
-		fmt.Printf("Error: %s", err)
-		return
-	}
+		if err != nil {
+			fmt.Printf("Error: %s", err)
+			return
+		}
 
-	for _, symbol := range symbols {
-		run(symbol.Symbol, db)
+		for _, symbol := range symbols {
+			now := time.Now()
+			go run(symbol.Symbol, db)
+			if now.Hour() == 16 && now.Minute() == 1 {
+				go func() {
+					chart.Run(symbol.Symbol, db)
+				}()
+
+			}
+			if time.Now().Hour() == 1 && now.Minute() == 1 {
+				go func() {
+					price.Run(symbol.Symbol, db)
+				}()
+			}
+		}
+
+		time.Sleep(time.Minute)
 	}
 }
 

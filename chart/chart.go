@@ -1,4 +1,4 @@
-package main
+package chart
 
 import (
 	"fmt"
@@ -7,31 +7,7 @@ import (
 	"time"
 )
 
-func main() {
-
-	db, err := model.InitDb()
-	if err != nil {
-		fmt.Printf("%s", err)
-		return
-	}
-
-	var symbols []*model.Symbol
-	err = db.Where("status > ?", 0).Find(&symbols).Error
-
-	if err != nil {
-		fmt.Printf("Error: %s", err)
-		return
-	}
-
-	for _, symbol := range symbols {
-		err = run(symbol.Symbol, db)
-		if err != nil {
-			fmt.Printf("Error: %s", err)
-		}
-	}
-}
-
-func run(symbol string, db *gorm.DB) error {
+func Run(symbol string, db *gorm.DB) error {
 	fmt.Printf("名称: %s\n", symbol)
 	var quotes []*model.Quote
 

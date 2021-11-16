@@ -26,7 +26,7 @@ func InitDb() (*gorm.DB, error) {
 	db.SetMaxOpenConns(32)
 	db.SetConnMaxLifetime(time.Second * 60) //db链接超时时间
 	gormDB, err := gorm.Open(mysql.New(mysql.Config{Conn: db}), &gorm.Config{
-		Logger:      logger.Default.LogMode(logger.Info),
+		Logger:      logger.Default.LogMode(logger.Error),
 		PrepareStmt: true,
 		NamingStrategy: schema.NamingStrategy{
 			SingularTable: true,
