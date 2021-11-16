@@ -8,7 +8,7 @@ try {
     $sql = "SELECT * FROM symbol WHERE 1 ORDER BY id";
 
     foreach($dbh->query($sql) as $row) {
-		$symbols[] = [
+		$symbols[$row['symbol']] = [
 			"symbol" => $row['symbol'],
 			"name" => $row['name'],
 		];
@@ -46,6 +46,18 @@ try {
 		const data = <?php echo json_encode($data);?>;
 		const config = {
 		    type: 'line',
+		    options: {
+                responsive: true,
+                plugins: {
+                  legend: {
+                    position: 'top',
+                  },
+                  title: {
+                    display: true,
+                    text: '<?php echo $symbols[$symbol]["name"] ?? $symbol ?>'
+                  }
+                }
+            },
 		    data: {
 		        labels: labels,
 		        tension: 0.1,
