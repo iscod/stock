@@ -1,5 +1,5 @@
 <?php
-$symbol = $_GET['s'] ?? $s = "SH605001";
+$symbol = $_GET['s'] ?? $s = "SZ000651";
 $labels = $data = $symbols = [];
 
 try {
