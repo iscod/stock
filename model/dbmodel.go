@@ -9,11 +9,12 @@ import (
 	"time"
 )
 
+var host = "127.0.0.1:3306"
 var user = "root"
 var passwd = "root"
 
 func InitDb() (*gorm.DB, error) {
-	db, err := sql.Open("mysql", user+":"+passwd+"@/stock?charset=utf8")
+	db, err := sql.Open("mysql", user+":"+passwd+"@tcp("+host+")/stock?charset=utf8")
 	if err != nil {
 		return nil, err
 	}
