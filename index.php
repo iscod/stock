@@ -14,7 +14,7 @@ try {
 		];
     }
 
-    $sql = "SELECT id, comment_count, current,low,high, exec_at FROM quote WHERE symbol = '" . $symbol .  "'  ORDER BY exec_at";
+    $sql = "SELECT id, comment_count,comment_count3, current,low,high, exec_at FROM quote WHERE symbol = '" . $symbol .  "'  ORDER BY exec_at";
 
     foreach($dbh->query($sql) as $row) {
     	$labels[] = $row['exec_at'];
@@ -23,6 +23,7 @@ try {
 			"low" => $row['low'],
 			"high" => $row['high'],
 			"comment" => $row['comment_count'],
+			"comment3" => $row['comment_count3'],
 			"current" => $row['current'],
 		];
     }
@@ -105,7 +106,18 @@ try {
 			                yAxisKey: 'comment',
 			            },
 			            yAxisID: 'comment',
-		        	}
+		        	},
+		        	{
+                        label: '机构',
+                        data: data,
+                        backgroundColor: 'rgba(54, 162, 235, 1)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1,
+                        parsing: {
+                            yAxisKey: 'comment3',
+                        },
+                        yAxisID: 'comment',
+                    }
 		        ],
 		    },
 		};

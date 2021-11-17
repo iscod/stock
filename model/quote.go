@@ -21,10 +21,13 @@ type Market struct {
 
 //Quote info struct
 type Quote struct {
-	Id           int `json:"-"`
-	Symbol       string
-	CommentCount int64  `json:"-"`
-	Code         string `gorm:"-"` //股票码
+	Id            int `json:"-"`
+	Symbol        string
+	CommentCount  int64  `json:"-"`
+	CommentCount1 int64  `json:"-"`
+	CommentCount2 int64  `json:"-"`
+	CommentCount3 int64  `json:"-"`
+	Code          string `gorm:"-"` //股票码
 	// Type       int
 	Name      string  //名字
 	Open      float32 //开盘价
@@ -64,9 +67,9 @@ type Quote struct {
 	Pe_ttm         float32 `gorm:"-"` //市盈率(TTM)
 	// Exchange        string //证交所代码,SZ,SH
 	// Pe_forecast     string
-	Time      int64     `gorm:"-"` //时间戳
-	ExecAt    string    `json:"-"` //创建时间
-	CreatedAt int64     `json:"-"` //创建时间
+	Time      int64  `gorm:"-"` //时间戳
+	ExecAt    string `json:"-"` //创建时间
+	CreatedAt int64  `json:"-"` //创建时间
 	// Total_shares    int    //总股本
 	// string_shares   string //流通股本
 	// status          int

@@ -9,18 +9,12 @@ import (
 )
 
 func Run(symbol string, db *gorm.DB) {
-	fmt.Printf("名称: %s\n", symbol)
-
 	//获取价格信息
 	quote, err := base.GetQuote(symbol)
-
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-
-	fmt.Printf(" %s, %s, 当前价格: %f, 开盘价: %f, 均价: %f, 当天最低: %f, 当天最高: %f, %d\n", quote.Name, quote.Symbol, quote.Current, quote.Open, quote.AvgPrice, quote.Low, quote.High, quote.Time)
-
 	quote.CreatedAt = quote.Time / 1000
 	quote.ExecAt = time.Unix(quote.CreatedAt, 0).Format("2006-01-02")
 	err = db.Where(model.Quote{Symbol: quote.Symbol, ExecAt: quote.ExecAt}).FirstOrCreate(quote).Error
@@ -31,4 +25,5 @@ func Run(symbol string, db *gorm.DB) {
 		fmt.Printf("%s", err)
 		return
 	}
+	fmt.Printf(" %s, %s, 价格: %f, 开盘价: %f, 均价: %f, 最低价: %f, 最高价: %f\n", quote.Name, time.Unix(quote.CreatedAt, 0).Format("2006-01-02 15:04:05"), quote.Current, quote.Open, quote.AvgPrice, quote.Low, quote.High)
 }
