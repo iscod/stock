@@ -110,8 +110,8 @@ try {
 		        	{
                         label: '机构',
                         data: data,
-                        backgroundColor: 'rgba(54, 162, 235, 1)',
-                        borderColor: 'rgba(54, 162, 235, 1)',
+                        backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                        borderColor: 'rgba(54, 162, 235, 0.5)',
                         borderWidth: 1,
                         parsing: {
                             yAxisKey: 'comment3',
