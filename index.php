@@ -14,18 +14,19 @@ try {
 		];
     }
 
-    $sql = "SELECT id, comment_count,comment_count3, current,low,high, exec_at FROM quote WHERE symbol = '" . $symbol .  "'  ORDER BY exec_at";
+    $sql = "SELECT id, comment_count,comment_count3, current,low,high,open, exec_at FROM quote WHERE symbol = '" . $symbol .  "'  ORDER BY exec_at";
 
     foreach($dbh->query($sql) as $row) {
-    	$labels[] = $row['exec_at'];
-		$data[] = [
-			"x" => $row['exec_at'],
-			"low" => $row['low'],
-			"high" => $row['high'],
-			"comment" => $row['comment_count'],
-			"comment3" => $row['comment_count3'],
-			"current" => $row['current'],
-		];
+        $labels[] = $row['exec_at'];
+        $data[] = [
+            "x" => $row['exec_at'],
+            "open" => $row['open'],
+            "low" => $row['low'],
+            "high" => $row['high'],
+            "comment" => $row['comment_count'],
+            "comment3" => $row['comment_count3'],
+            "current" => $row['current'],
+        ];
     }
     $dbh = null;
 } catch (PDOException $e) {
@@ -59,55 +60,57 @@ try {
                   }
                 }
             },
-		    data: {
-		        labels: labels,
-		        tension: 0.1,
-		        datasets: [
-		        	{
-			            label: '价格',
-			            data: data,
-			            backgroundColor: 'rgba(255, 99, 132, 1)',
-	    				borderColor: 'rgba(255, 99, 132, 1)',
-	    				borderWidth: 1,
-			            parsing: {
-			                yAxisKey: 'current',
-			            },
-			            yAxisID: 'current',
-		        	},
-		        	{
-			            label: '最高价',
-			            data: data,
-			            backgroundColor: 'rgba(255, 0, 0, 0.2)',
-	    				borderColor: 'rgba(255, 0, 0, 0.2)',
-	    				borderWidth: 1,
-			            parsing: {
-			                yAxisKey: 'high'
-			            },
-			            yAxisID: 'current',
-		        	},
-		        	{
-			            label: '最低价',
-			            data: data,
-			            backgroundColor: 'rgba(0, 128, 0, 0.2)',
-	    				borderColor: 'rgba(0, 128, 0, 0.2)',
-	    				borderWidth: 1,
-			            parsing: {
-			                yAxisKey: 'low'
-			            },
-			            yAxisID: 'current',
-		        	},
-		        	{
-			            label: '评论数',
-			            data: data,
-			            backgroundColor: 'rgba(54, 162, 235, 1)',
-	    				borderColor: 'rgba(54, 162, 235, 1)',
-	    				borderWidth: 1,
-			            parsing: {
-			                yAxisKey: 'comment',
-			            },
-			            yAxisID: 'comment',
-		        	},
-		        	{
+            data: {
+                labels: labels,
+                tension: 0.1,
+                datasets: [
+                    {
+                        label: '价格',
+                        data: data,
+                        backgroundColor: 'rgba(255, 99, 132, 1)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1,
+                        parsing: {
+                            yAxisKey: 'current',
+                        },
+                        yAxisID: 'current',
+                    },
+                    {
+                        label: '最低价',
+                        data: data,
+                        backgroundColor: 'rgba(54, 162, 235, 0.1)',
+                        borderColor: 'rgba(54, 162, 235, 0.2)',
+                        borderWidth: 1,
+                        parsing: {
+                            yAxisKey: 'low'
+                        },
+                        yAxisID: 'current',
+                        fill: '+1'
+                    },
+                    {
+                        label: '最高价',
+                        data: data,
+                        backgroundColor: 'rgba(0, 128, 0, 0.1)',
+                        borderColor: 'rgba(0, 128, 0, 0.2)',
+                        borderWidth: 1,
+                        parsing: {
+                            yAxisKey: 'high'
+                        },
+                        yAxisID: 'current',
+                    },
+
+                    {
+                        label: '评论数',
+                        data: data,
+                        backgroundColor: 'rgba(54, 162, 235, 1)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1,
+                        parsing: {
+                            yAxisKey: 'comment',
+                        },
+                        yAxisID: 'comment',
+                    },
+                    {
                         label: '机构',
                         data: data,
                         backgroundColor: 'rgba(54, 162, 235, 0.5)',
