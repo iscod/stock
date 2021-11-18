@@ -8,30 +8,32 @@ try {
     $sql = "SELECT * FROM symbol WHERE 1 ORDER BY id";
 
     foreach($dbh->query($sql) as $row) {
-		$symbols[$row['symbol']] = [
-			"symbol" => $row['symbol'],
-			"name" => $row['name'],
-			"background_color" => $row['background_color'],
-			"border_color" => $row['border_color'],
-		];
+        $symbols[$row['symbol']] = [
+            "id" => $row['id'],
+            "symbol" => $row['symbol'],
+            "name" => $row['name'],
+            "background_color" => $row['background_color'],
+            "border_color" => $row['border_color'],
+        ];
     }
 
     $sql = "SELECT id,symbol, comment_count,comment_count3, current,low,high, exec_at FROM quote WHERE 1  ORDER BY exec_at";
 
     foreach($dbh->query($sql) as $row) {
-    	$labels[$row['exec_at']] = $row['exec_at'];
-    	$data[$row['symbol']]['name'] = $symbols[$row['symbol']]['name'] ?? $row['symbol'];
-    	$data[$row['symbol']]['backgroundColor'] = $symbols[$row['symbol']]['background_color'] ?? "rgba(255, 99, 132, 1)";
-    	$data[$row['symbol']]['borderColor'] = $symbols[$row['symbol']]['border_color'] ?? "rgba(255, 99, 132,0.5)";
-		$data[$row['symbol']]['data'][] = [
-			"x" => $row['exec_at'],
-			"low" => $row['low'],
-			"high" => $row['high'],
-			"comment" => $row['comment_count'],
-			"comment3" => $row['comment_count3'],
-			"current" => $row['current'],
-		];
+        $labels[$row['exec_at']] = $row['exec_at'];
+        $data[$symbols[$row['symbol']]['id']]['name'] = $symbols[$row['symbol']]['name'] ?? $row['symbol'];
+        $data[$symbols[$row['symbol']]['id']]['backgroundColor'] = $symbols[$row['symbol']]['background_color'] ?? "rgba(255, 99, 132, 1)";
+        $data[$symbols[$row['symbol']]['id']]['borderColor'] = $symbols[$row['symbol']]['border_color'] ?? "rgba(255, 99, 132,0.5)";
+        $data[$symbols[$row['symbol']]['id']]['data'][] = [
+            "x" => $row['exec_at'],
+            "low" => $row['low'],
+            "high" => $row['high'],
+            "comment" => $row['comment_count'],
+            "comment3" => $row['comment_count3'],
+            "current" => $row['current'],
+        ];
     }
+    ksort($data);
     $datasets = [];
     foreach ($data as $value) {
     	$datasets[] = [
