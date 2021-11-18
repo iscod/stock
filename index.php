@@ -39,7 +39,7 @@ try {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
-    <title>wateree-添加地址</title>
+    <title>AiStock</title>
 	<script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	<script>
@@ -153,6 +153,7 @@ try {
 			echo '<li><a href="index.php?s='.$value['symbol'] . '">' . $value['name'] . '</a></li>';
 		}
 		?>
+		<li><a href="/rank.php">评论排行</li>
 		</ul>
 	</div>
 <div>
