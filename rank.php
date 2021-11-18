@@ -1,4 +1,5 @@
 <?php
+$key = $_GET['key'] ?? "comment";
 $labels = $data = $symbols = [];
 
 try {
@@ -31,17 +32,16 @@ try {
 			"current" => $row['current'],
 		];
     }
-
     $datasets = [];
-    foreach ($data as $key => $value) {
+    foreach ($data as $value) {
     	$datasets[] = [
     		'label' => $value["name"],
     		'data' => $value['data'] ,
     		'backgroundColor' => $value["backgroundColor"],
     		'borderColor' =>  $value["borderColor"],
     		'parsing' => [
-    			'yAxisKey' => 'comment',
-    			'yAxisID' => 'comment',
+    			'yAxisKey' => $key,
+    			'yAxisID' => $key,
     		]];
     }
 
@@ -116,7 +116,13 @@ try {
 			echo '<li><a href="index.php?s='.$value['symbol'] . '">' . $value['name'] . '</a></li>';
 		}
 		?>
+		<?php if($key == "comment"):?>
+		<li><a href="/rank?key=comment3">机构评论</a></li>
+		<?php else:?>
+			<li><a href="/rank?key=comment">热门评论</a></li>
+		<?php endif;?>
 		</ul>
+
 	</div>
 <div>
   <canvas id="myChart"></canvas>
