@@ -29,7 +29,7 @@ func main() {
 			return
 		}
 
-		if time.Now().Hour() >= 15 {
+		if time.Now().Hour() <= 16 && time.Now().Hour() >= 9 {
 			for _, symbol := range symbols {
 				price.Run(symbol.Symbol, db)
 			}
