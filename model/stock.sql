@@ -46,6 +46,8 @@ CREATE TABLE `symbol` (
   `symbol` varchar(128) NOT NULL DEFAULT '',
   `name` varchar(128) NOT NULL DEFAULT '',
   `status` int(10) unsigned NOT NULL DEFAULT '0',
+  `background_color` varchar(128) NOT NULL DEFAULT '',
+  `border_color` varchar(128) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4
 

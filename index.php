@@ -153,7 +153,7 @@ try {
 			echo '<li><a href="index.php?s='.$value['symbol'] . '">' . $value['name'] . '</a></li>';
 		}
 		?>
-		<li><a href="/rank.php">评论排行</li>
+		<li><a href="/rank.php">评论排行</a></li>
 		</ul>
 	</div>
 <div>
