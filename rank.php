@@ -112,12 +112,12 @@ try {
 	<div>
 		<ul>
 		<?php
-		foreach ($symbols as $key => $value) {
+		foreach ($symbols as $value) {
 			echo '<li><a href="index.php?s='.$value['symbol'] . '">' . $value['name'] . '</a></li>';
 		}
 		?>
 		<?php if($key == "comment"):?>
-		<li><a href="/rank?key=comment3">机构评论</a></li>
+		    <li><a href="/rank?key=comment3">机构评论</a></li>
 		<?php else:?>
 			<li><a href="/rank?key=comment">热门评论</a></li>
 		<?php endif;?>
