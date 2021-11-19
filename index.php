@@ -24,9 +24,9 @@ try {
             "low" => $row['low'],
             "high" => $row['high'],
             "volume" => $row['volume'],
-            "s_volume" => $row['s_volume'],
-            "b_volume" => $row['b_volume'],
-            "m_volume" => $row['m_volume'],
+            "s_volume" => $row['s_volume']/100,
+            "b_volume" => $row['b_volume']/100,
+            "m_volume" => $row['m_volume']/100,
             "comment" => $row['comment_count'],
             "comment3" => $row['comment_count3'],
             "current" => $row['current'],
@@ -126,6 +126,17 @@ try {
                         yAxisID: 'comment',
                     },
                     {
+                        label: '成交量(手)',
+                        data: data,
+                        backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                        borderColor: 'rgba(153, 102, 255, 0.2)',
+                        borderWidth: 1,
+                        parsing: {
+                            yAxisKey: 'volume',
+                        },
+                        yAxisID: 'volume',
+                    },
+                    {
                         label: '卖盘',
                         data: data,
                         backgroundColor: 'rgba(153, 102, 255, 0.2)',
@@ -134,7 +145,7 @@ try {
                         parsing: {
                             yAxisKey: 's_volume',
                         },
-                        yAxisID: 's_volume',
+                        yAxisID: 'volume',
                     },
                     {
                         label: '买盘',
@@ -145,7 +156,7 @@ try {
                         parsing: {
                             yAxisKey: 'b_volume',
                         },
-                        yAxisID: 's_volume',
+                        yAxisID: 'volume',
                     },
                     {
                       label: '中盘',
@@ -156,7 +167,7 @@ try {
                       parsing: {
                           yAxisKey: 'm_volume',
                       },
-                      yAxisID: 's_volume',
+                      yAxisID: 'volume',
                   },
 		        ],
 		    },
