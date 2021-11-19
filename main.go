@@ -34,7 +34,7 @@ func main() {
 			for _, symbol := range symbols {
 				price.Run(symbol.Symbol, db)
 
-				err = detail.Runs(symbol.Symbol, db)
+				err = detail.Run(symbol.Symbol, db)
 				if err != nil {
 					fmt.Printf("GetDetail Error %s", err)
 				}

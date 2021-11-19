@@ -1,8 +1,10 @@
 package base
 
 import (
+	"bytes"
 	"github.com/iscod/goStock/model"
 	"io"
+	"io/ioutil"
 	"strings"
 )
 import "net/http"
@@ -68,4 +70,30 @@ func GetDetail(symbol string) (*model.DetailData, error) {
 	}
 
 	return &message.Data, nil
+}
+
+func GetSummary(symbol string) (model.StringSlices, error) {
+	url := "https://stock.gtimg.cn/data/index.php?appn=dadan&action=summary&c=" + strings.ToLower(symbol)
+	client := &http.Client{}
+	resp, err := client.Get(url)
+
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	body, err := ioutil.ReadAll(resp.Body)
+	body = bytes.TrimLeft(body, "v_dadan_summary_"+strings.ToLower(symbol)+"=")
+
+	newbody := []byte{}
+	for _, v := range body {
+		newbody = append(newbody, bytes.Trim([]byte{v}, "'")...)
+	}
+	var m = model.StringSlices{}
+	err = json.Unmarshal(newbody, &m)
+	if err != nil {
+		return nil, err
+	}
+	return m, err
 }

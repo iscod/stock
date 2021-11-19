@@ -14,7 +14,7 @@ try {
 		];
     }
 
-    $sql = "SELECT id, comment_count,comment_count3, current,low,high,open, volume, s_volume, b_volume, m_volume, exec_at FROM quote WHERE symbol = '" . $symbol .  "'  ORDER BY exec_at";
+    $sql = "SELECT id, comment_count,comment_count3, current,low,high,open, volume, summary_volume, exec_at FROM quote WHERE symbol = '" . $symbol .  "'  ORDER BY exec_at";
 
     foreach($dbh->query($sql) as $row) {
         $labels[] = $row['exec_at'];
@@ -24,9 +24,7 @@ try {
             "low" => $row['low'],
             "high" => $row['high'],
             "volume" => $row['volume']/100,
-            "s_volume" => $row['s_volume']/100,
-            "b_volume" => $row['b_volume']/100,
-            "m_volume" => $row['m_volume']/100,
+            "summary_volume" => json_decode($row['summary_volume'], true),
             "comment" => $row['comment_count'],
             "comment3" => $row['comment_count3'],
             "current" => $row['current'],
@@ -125,53 +123,53 @@ try {
                         },
                         yAxisID: 'comment',
                     },
+                    // {
+                    //     label: '成交量(手)',
+                    //     data: data,
+                    //     backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                    //     borderColor: 'rgba(153, 102, 255, 0.2)',
+                    //     borderWidth: 1,
+                    //     parsing: {
+                    //         yAxisKey: 'volume',
+                    //     },
+                    //     yAxisID: 'volume',
+                    // },
                     {
-                        label: '成交量(手)',
+                        label: '卖盘',
                         data: data,
                         backgroundColor: 'rgba(153, 102, 255, 0.2)',
                         borderColor: 'rgba(153, 102, 255, 0.2)',
                         borderWidth: 1,
                         parsing: {
-                            yAxisKey: 'volume',
+                            yAxisKey: 'summary_volume.10.s',
                         },
                         yAxisID: 'volume',
                     },
-//                     {
-//                         label: '卖盘',
-//                         data: data,
-//                         backgroundColor: 'rgba(153, 102, 255, 0.2)',
-//                         borderColor: 'rgba(153, 102, 255, 0.2)',
-//                         borderWidth: 1,
-//                         parsing: {
-//                             yAxisKey: 's_volume',
-//                         },
-//                         yAxisID: 'volume',
-//                     },
-//                     {
-//                         label: '买盘',
-//                         data: data,
-//                         backgroundColor: 'rgba(75, 192, 192, 0.2)',
-//                         borderColor: 'rgba(75, 192, 192, 0.2)',
-//                         borderWidth: 1,
-//                         parsing: {
-//                             yAxisKey: 'b_volume',
-//                         },
-//                         yAxisID: 'volume',
-//                     },
-//                     {
-//                       label: '中盘',
-//                       data: data,
-//                       backgroundColor: 'rgba(255, 206, 86, 0.2)',
-//                       borderColor: 'rgba(255, 206, 86, 0.2)',
-//                       borderWidth: 1,
-//                       parsing: {
-//                           yAxisKey: 'm_volume',
-//                       },
-//                       yAxisID: 'volume',
-//                   },
-		        ],
-		    },
-		};
+                    {
+                        label: '买盘',
+                        data: data,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 0.2)',
+                        borderWidth: 1,
+                        parsing: {
+                            yAxisKey: 'summary_volume.10.b',
+                        },
+                        yAxisID: 'volume',
+                    },
+                    {
+                      label: '中盘',
+                      data: data,
+                      backgroundColor: 'rgba(255, 206, 86, 0.2)',
+                      borderColor: 'rgba(255, 206, 86, 0.2)',
+                      borderWidth: 1,
+                      parsing: {
+                          yAxisKey: 'summary_volume.10.m',
+                      },
+                      yAxisID: 'volume',
+                  },
+                ],
+            },
+        };
 
 		$(document).ready(function () {
 		    const myChart = new Chart(

@@ -10,12 +10,14 @@ import (
 	"time"
 )
 
-func Runs(symbol string, db *gorm.DB) error {
+func Run(symbol string, db *gorm.DB) error {
 
 	detail, err := base.GetDetail(symbol)
 	if err != nil {
 		return err
 	}
+
+	summary, err := base.GetSummary(symbol)
 
 	T, err := time.ParseInLocation("20060102 15:04:05", fmt.Sprintf("%s 00:00:00", detail.Summary.Date), time.Local)
 	if err != nil {
@@ -28,20 +30,23 @@ func Runs(symbol string, db *gorm.DB) error {
 	if err != nil {
 		return err
 	}
-	quote.Detail = detail.Detail
-	quote.BVolume, quote.SVolume = 0, 0
+
+	quote.SummaryVolume = map[int]model.SummaryVolume{}
 	var vv float64
-	for _, v := range detail.Detail {
-		vv, err = strconv.ParseFloat(strings.Trim(v[2], "\""), 64)
-		switch strings.Trim(v[3], "\"") {
-		case "B":
-			quote.BVolume += int64(vv) * 100
-		case "S":
-			quote.SVolume += int64(vv) * 100
-		case "M":
-			quote.MVolume += int64(vv) * 100
-		default:
-			fmt.Printf("====%s", v[3])
+	for _, v := range summary {
+		if len(v) > 6 {
+			k, _ := strconv.ParseFloat(v[0], 64)
+			bv, err := strconv.ParseFloat(strings.Trim(v[4], " "), 64)
+			if err != nil {
+				fmt.Printf("%s", err)
+			}
+			sv, _ := strconv.ParseFloat(strings.Trim(v[5], " "), 64)
+			mv, _ := strconv.ParseFloat(strings.Trim(v[6], " "), 64)
+			quote.SummaryVolume[int(k)] = model.SummaryVolume{
+				BVolume: int64(bv),
+				SVolume: int64(sv),
+				MVolume: int64(mv),
+			}
 		}
 	}
 
@@ -49,7 +54,7 @@ func Runs(symbol string, db *gorm.DB) error {
 	if err == nil {
 		quote.Volume = int64(vv)
 	}
-	fmt.Printf("%s, %s, 成交量: %d, 卖盘: %d, 买盘: %d, 中盘 %d\n", quote.Name, T.Format("2006-01-02"), quote.Volume/100, quote.SVolume/100, quote.BVolume/100, quote.SVolume/100)
+	fmt.Printf("%s, %s, 成交量: %d, 卖盘: %d, 买盘: %d, 中盘 %d\n", quote.Name, T.Format("2006-01-02"), quote.Volume/100, quote.SummaryVolume[10].SVolume, quote.SummaryVolume[10].BVolume, quote.SummaryVolume[10].MVolume)
 	err = db.Save(quote).Error
 	return err
 }

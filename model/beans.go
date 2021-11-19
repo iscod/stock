@@ -22,11 +22,15 @@ func (this *StringSlice) UnmarshalJSON(data []byte) error {
 }
 
 func (this *StringSlice) Scan(value interface{}) error {
-	*this = make([]string, 0)
+	*this = StringSlice{}
 	if value == nil {
 		return nil
 	}
-	return this.UnmarshalJSON(value.([]byte))
+	return json.Unmarshal(value.([]byte), this)
+}
+
+func (this StringSlice) Value() (driver.Value, error) {
+	return json.Marshal(this)
 }
 
 type StringSlices []StringSlice
