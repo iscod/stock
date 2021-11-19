@@ -123,7 +123,7 @@ try {
                         yAxisID: 'comment',
                     },
                     {
-                        label: '成交单',
+                        label: '成交量',
                         data: data,
                         backgroundColor: 'rgba(153, 102, 255, 0.5)',
                         borderColor: 'rgba(153, 102, 255, 0.5)',
