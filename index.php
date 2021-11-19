@@ -125,8 +125,8 @@ try {
                     {
                         label: '成就单',
                         data: data,
-                        backgroundColor: 'rgba(54, 162, 235, 0.5)',
-                        borderColor: 'rgba(54, 162, 235, 0.5)',
+                        backgroundColor: 'rgba(153, 102, 255, 0.5)',
+                        borderColor: 'rgba(153, 102, 255, 0.5)',
                         borderWidth: 1,
                         parsing: {
                             yAxisKey: 'volume',
