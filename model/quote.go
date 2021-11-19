@@ -28,6 +28,9 @@ type Quote struct {
 	CommentCount2 int64        `json:"-"`
 	CommentCount3 int64        `json:"-"`
 	Volume        int64        `json:"-"`
+	SVolume       int64        `json:"-"`
+	BVolume       int64        `json:"-"`
+	MVolume       int64        `json:"-"`
 	Detail        StringSlices `json:"-"`
 	Code          string       `gorm:"-"` //股票码
 	// Type       int
