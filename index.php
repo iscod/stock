@@ -23,6 +23,7 @@ try {
             "open" => $row['open'],
             "low" => $row['low'],
             "high" => $row['high'],
+            "volume" => $row['volume'],
             "comment" => $row['comment_count'],
             "comment3" => $row['comment_count3'],
             "current" => $row['current'],
@@ -120,7 +121,18 @@ try {
                             yAxisKey: 'comment3',
                         },
                         yAxisID: 'comment',
-                    }
+                    },
+                    {
+                        label: '成就单',
+                        data: data,
+                        backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                        borderColor: 'rgba(54, 162, 235, 0.5)',
+                        borderWidth: 1,
+                        parsing: {
+                            yAxisKey: 'volume',
+                        },
+                        yAxisID: 'volume',
+                    },
 		        ],
 		    },
 		};

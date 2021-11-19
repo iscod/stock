@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/iscod/goStock/base"
 	"github.com/iscod/goStock/chart"
+	"github.com/iscod/goStock/detail"
 	"github.com/iscod/goStock/model"
 	"github.com/iscod/goStock/price"
 	"gorm.io/gorm"
@@ -32,6 +33,11 @@ func main() {
 		if time.Now().Hour() <= 16 && time.Now().Hour() >= 9 {
 			for _, symbol := range symbols {
 				price.Run(symbol.Symbol, db)
+
+				err = detail.Runs(symbol.Symbol, db)
+				if err != nil {
+					fmt.Printf("GetDetail Error %s", err)
+				}
 			}
 		}
 

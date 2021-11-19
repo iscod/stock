@@ -23,11 +23,13 @@ type Market struct {
 type Quote struct {
 	Id            int `json:"-"`
 	Symbol        string
-	CommentCount  int64  `json:"-"`
-	CommentCount1 int64  `json:"-"`
-	CommentCount2 int64  `json:"-"`
-	CommentCount3 int64  `json:"-"`
-	Code          string `gorm:"-"` //股票码
+	CommentCount  int64        `json:"-"`
+	CommentCount1 int64        `json:"-"`
+	CommentCount2 int64        `json:"-"`
+	CommentCount3 int64        `json:"-"`
+	Volume        int64        `json:"-"`
+	Detail        StringSlices `json:"-"`
+	Code          string       `gorm:"-"` //股票码
 	// Type       int
 	Name      string  //名字
 	Open      float32 //开盘价
