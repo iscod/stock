@@ -7,7 +7,6 @@ import (
 	"github.com/iscod/goStock/model"
 	"github.com/iscod/goStock/price"
 	"gorm.io/gorm"
-	"os"
 	"time"
 )
 import "fmt"
@@ -30,12 +29,6 @@ func main() {
 			fmt.Printf("Error: %s", err)
 			return
 		}
-		for _, symbol := range symbols {
-			price.Run(symbol.Symbol, db)
-
-			err = detail.Runs(symbol.Symbol, db)
-		}
-		os.Exit(1)
 
 		if time.Now().Hour() <= 16 && time.Now().Hour() >= 9 {
 			for _, symbol := range symbols {
