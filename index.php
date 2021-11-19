@@ -145,7 +145,7 @@ try {
                         parsing: {
                             yAxisKey: 'bvolume',
                         },
-                        yAxisID: 'bvolume',
+                        yAxisID: 'svolume',
                     },
                     {
                       label: '中盘',
@@ -156,7 +156,7 @@ try {
                       parsing: {
                           yAxisKey: 'bvolume',
                       },
-                      yAxisID: 'bvolume',
+                      yAxisID: 'svolume',
                   },
 		        ],
 		    },
