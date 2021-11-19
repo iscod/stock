@@ -23,7 +23,7 @@ try {
             "open" => $row['open'],
             "low" => $row['low'],
             "high" => $row['high'],
-            "volume" => $row['volume'],
+            "volume" => $row['volume']/100,
             "s_volume" => $row['s_volume']/100,
             "b_volume" => $row['b_volume']/100,
             "m_volume" => $row['m_volume']/100,
