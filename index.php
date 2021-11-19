@@ -14,7 +14,7 @@ try {
 		];
     }
 
-    $sql = "SELECT id, comment_count,comment_count3, current,low,high,open,volume, svolume, bvolume,mvolume, exec_at FROM quote WHERE symbol = '" . $symbol .  "'  ORDER BY exec_at";
+    $sql = "SELECT id, comment_count,comment_count3, current,low,high,open, volume, s_volume, b_volume, m_volume, exec_at FROM quote WHERE symbol = '" . $symbol .  "'  ORDER BY exec_at";
 
     foreach($dbh->query($sql) as $row) {
         $labels[] = $row['exec_at'];
@@ -24,9 +24,9 @@ try {
             "low" => $row['low'],
             "high" => $row['high'],
             "volume" => $row['volume'],
-            "svolume" => $row['svolume'],
-            "bvolume" => $row['bvolume'],
-            "mvolume" => $row['mvolume'],
+            "s_volume" => $row['s_volume'],
+            "b_volume" => $row['b_volume'],
+            "m_volume" => $row['m_volume'],
             "comment" => $row['comment_count'],
             "comment3" => $row['comment_count3'],
             "current" => $row['current'],
@@ -132,9 +132,9 @@ try {
                         borderColor: 'rgba(153, 102, 255, 0.2)',
                         borderWidth: 1,
                         parsing: {
-                            yAxisKey: 'svolume',
+                            yAxisKey: 's_volume',
                         },
-                        yAxisID: 'svolume',
+                        yAxisID: 's_volume',
                     },
                     {
                         label: '买盘',
@@ -143,9 +143,9 @@ try {
                         borderColor: 'rgba(75, 192, 192, 0.2)',
                         borderWidth: 1,
                         parsing: {
-                            yAxisKey: 'bvolume',
+                            yAxisKey: 'b_volume',
                         },
-                        yAxisID: 'svolume',
+                        yAxisID: 's_volume',
                     },
                     {
                       label: '中盘',
@@ -154,9 +154,9 @@ try {
                       borderColor: 'rgba(255, 206, 86, 0.2)',
                       borderWidth: 1,
                       parsing: {
-                          yAxisKey: 'bvolume',
+                          yAxisKey: 'm_volume',
                       },
-                      yAxisID: 'svolume',
+                      yAxisID: 's_volume',
                   },
 		        ],
 		    },
