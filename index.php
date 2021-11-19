@@ -136,39 +136,39 @@ try {
                         },
                         yAxisID: 'volume',
                     },
-                    {
-                        label: '卖盘',
-                        data: data,
-                        backgroundColor: 'rgba(153, 102, 255, 0.2)',
-                        borderColor: 'rgba(153, 102, 255, 0.2)',
-                        borderWidth: 1,
-                        parsing: {
-                            yAxisKey: 's_volume',
-                        },
-                        yAxisID: 'volume',
-                    },
-                    {
-                        label: '买盘',
-                        data: data,
-                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                        borderColor: 'rgba(75, 192, 192, 0.2)',
-                        borderWidth: 1,
-                        parsing: {
-                            yAxisKey: 'b_volume',
-                        },
-                        yAxisID: 'volume',
-                    },
-                    {
-                      label: '中盘',
-                      data: data,
-                      backgroundColor: 'rgba(255, 206, 86, 0.2)',
-                      borderColor: 'rgba(255, 206, 86, 0.2)',
-                      borderWidth: 1,
-                      parsing: {
-                          yAxisKey: 'm_volume',
-                      },
-                      yAxisID: 'volume',
-                  },
+//                     {
+//                         label: '卖盘',
+//                         data: data,
+//                         backgroundColor: 'rgba(153, 102, 255, 0.2)',
+//                         borderColor: 'rgba(153, 102, 255, 0.2)',
+//                         borderWidth: 1,
+//                         parsing: {
+//                             yAxisKey: 's_volume',
+//                         },
+//                         yAxisID: 'volume',
+//                     },
+//                     {
+//                         label: '买盘',
+//                         data: data,
+//                         backgroundColor: 'rgba(75, 192, 192, 0.2)',
+//                         borderColor: 'rgba(75, 192, 192, 0.2)',
+//                         borderWidth: 1,
+//                         parsing: {
+//                             yAxisKey: 'b_volume',
+//                         },
+//                         yAxisID: 'volume',
+//                     },
+//                     {
+//                       label: '中盘',
+//                       data: data,
+//                       backgroundColor: 'rgba(255, 206, 86, 0.2)',
+//                       borderColor: 'rgba(255, 206, 86, 0.2)',
+//                       borderWidth: 1,
+//                       parsing: {
+//                           yAxisKey: 'm_volume',
+//                       },
+//                       yAxisID: 'volume',
+//                   },
 		        ],
 		    },
 		};
