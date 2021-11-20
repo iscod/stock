@@ -78,7 +78,3 @@ func Run(symbol string, db *gorm.DB) error {
 	err = db.Save(quote).Error
 	return err
 }
-
-func RunFundFlow(symbol string, quote model.Quote) {
-
-}
