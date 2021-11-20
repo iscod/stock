@@ -29,6 +29,7 @@ type Quote struct {
 	CommentCount3 int64           `json:"-"`
 	Volume        int64           `json:"-"`
 	SummaryVolume SummaryVolumeKv `json:"-"`
+	FundFlow      FundFlow        `json:"-"`
 	Code          string          `gorm:"-"` //股票码
 	// Type       int
 	Name      string  //名字

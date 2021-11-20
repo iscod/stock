@@ -55,6 +55,30 @@ func Run(symbol string, db *gorm.DB) error {
 		quote.Volume = int64(vv)
 	}
 	fmt.Printf("%s, %s, 成交量: %d, 卖盘: %d, 买盘: %d, 中盘 %d\n", quote.Name, T.Format("2006-01-02"), quote.Volume/100, quote.SummaryVolume[10].SVolume, quote.SummaryVolume[10].BVolume, quote.SummaryVolume[10].MVolume)
+
+	message, err := base.GetFundFlowMessage("SZ000651")
+	if err != nil {
+		fmt.Printf("Err: %s", err)
+	}
+
+	l := len(message.Data.HistoryFundFlow.OneDayKlineList)
+	if l > 0 {
+		fundFlow := message.Data.HistoryFundFlow.OneDayKlineList[l-1]
+		if quote.ExecAt == fundFlow.Date {
+			quote.FundFlow = model.FundFlow{
+				MainNetIn:     fundFlow.MainNetIn,
+				AvgIn:         fundFlow.AvgIn,
+				TodayFundFlow: message.Data.TodayFundFlow,
+			}
+		}
+	}
+
+	fmt.Printf("%s, %s, 主力净流入: %s, 主力流入%s, 流出: %s", quote.Name, T.Format("2006-01-02"), message.Data.TodayFundFlow.MainNetIn, message.Data.TodayFundFlow.MainIn, message.Data.TodayFundFlow.MainOut)
+
 	err = db.Save(quote).Error
 	return err
+}
+
+func RunFundFlow(symbol string, quote model.Quote) {
+
 }
