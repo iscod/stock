@@ -14,7 +14,7 @@ try {
 		];
     }
 
-    $sql = "SELECT id, comment_count,comment_count3, current,low,high,open, volume, summary_volume, exec_at FROM quote WHERE symbol = '" . $symbol .  "'  ORDER BY exec_at";
+    $sql = "SELECT id, comment_count,comment_count3, current,low,high,open, volume, summary_volume,fund_flow, exec_at FROM quote WHERE symbol = '" . $symbol .  "'  ORDER BY exec_at";
 
     foreach($dbh->query($sql) as $row) {
         $labels[] = $row['exec_at'];
@@ -25,6 +25,7 @@ try {
             "high" => $row['high'],
             "volume" => $row['volume']/100,
             "summary_volume" => json_decode($row['summary_volume'], true),
+            "fund_flow" => json_decode($row['fund_flow'], true),
             "comment" => $row['comment_count'],
             "comment3" => $row['comment_count3'],
             "current" => $row['current'],
@@ -166,7 +167,21 @@ try {
                           yAxisKey: 'summary_volume.10.m',
                       },
                       yAxisID: 'volume',
-                  },
+                    },
+                    {
+                      label: '主力净流入',
+                      data: data,
+                      type:"bar",
+                      backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                      borderColor: 'rgba(255, 159, 64, 1)',
+                      borderWidth: 1,
+                      parsing: {
+
+                          yAxisKey: 'fund_flow.MainNetIn',
+                      },
+                      yAxisID: 'fund_flow.MainNetIn',
+
+                    },
                 ],
             },
         };
