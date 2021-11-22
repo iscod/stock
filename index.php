@@ -160,8 +160,8 @@ try {
                     {
                       label: '中盘',
                       data: data,
-                      backgroundColor: 'rgba(205, 220, 57, 0.5)',
-                      borderColor: 'rgba(205, 220, 57, 0.5)',
+                      backgroundColor: 'rgba(205, 220, 57, 0.4)',
+                      borderColor: 'rgba(205, 220, 57, 0.4)',
                       borderWidth: 1,
                       parsing: {
                           yAxisKey: 'summary_volume.10.m',
