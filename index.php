@@ -127,8 +127,8 @@ try {
                     {
                         label: '成交量(手)',
                         data: data,
-                        backgroundColor: 'rgba(205, 220, 57, 0.5)',
-                        borderColor: 'rgba(205, 220, 57, 0.5)',
+                        backgroundColor: 'rgba(76, 175, 80, 0.5)',
+                        borderColor: 'rgba(76, 175, 80, 0.5)',
                         borderWidth: 1,
                         parsing: {
                             yAxisKey: 'volume',
@@ -160,8 +160,8 @@ try {
                     {
                       label: '中盘',
                       data: data,
-                      backgroundColor: 'rgba(255, 235, 59, 0.2)',
-                      borderColor: 'rgba(255, 235, 59, 0.2)',
+                      backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                      borderColor: 'rgba(54, 162, 235, 0.2)',
                       borderWidth: 1,
                       parsing: {
                           yAxisKey: 'summary_volume.10.m',
