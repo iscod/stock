@@ -127,8 +127,8 @@ try {
                     {
                         label: '成交量(手)',
                         data: data,
-                        backgroundColor: 'rgba(103, 58, 183, 0.5)',
-                        borderColor: 'rgba(103, 58, 183, 0.5)',
+                        backgroundColor: 'rgba(205, 220, 57, 0.5)',
+                        borderColor: 'rgba(205, 220, 57, 0.5)',
                         borderWidth: 1,
                         parsing: {
                             yAxisKey: 'volume',
