@@ -56,7 +56,7 @@ func Run(symbol string, db *gorm.DB) error {
 	}
 	fmt.Printf("%s, %s, 成交量: %d, 卖盘: %d, 买盘: %d, 中盘 %d\n", quote.Name, T.Format("2006-01-02"), quote.Volume/100, quote.SummaryVolume[10].SVolume, quote.SummaryVolume[10].BVolume, quote.SummaryVolume[10].MVolume)
 
-	message, err := base.GetFundFlowMessage("SZ000651")
+	message, err := base.GetFundFlowMessage(symbol)
 	if err != nil {
 		fmt.Printf("Err: %s", err)
 	}
