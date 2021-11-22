@@ -124,17 +124,17 @@ try {
                         },
                         yAxisID: 'comment',
                     },
-                    // {
-                    //     label: '成交量(手)',
-                    //     data: data,
-                    //     backgroundColor: 'rgba(153, 102, 255, 0.2)',
-                    //     borderColor: 'rgba(153, 102, 255, 0.2)',
-                    //     borderWidth: 1,
-                    //     parsing: {
-                    //         yAxisKey: 'volume',
-                    //     },
-                    //     yAxisID: 'volume',
-                    // },
+                    {
+                        label: '成交量(手)',
+                        data: data,
+                        backgroundColor: 'rgba(103, 58, 183, 0.5)',
+                        borderColor: 'rgba(103, 58, 183, 0.5)',
+                        borderWidth: 1,
+                        parsing: {
+                            yAxisKey: 'volume',
+                        },
+                        yAxisID: 'volume',
+                    },
                     {
                         label: '卖盘',
                         data: data,
@@ -160,8 +160,8 @@ try {
                     {
                       label: '中盘',
                       data: data,
-                      backgroundColor: 'rgba(255, 206, 86, 0.2)',
-                      borderColor: 'rgba(255, 206, 86, 0.2)',
+                      backgroundColor: 'rgba(255, 235, 59, 0.2)',
+                      borderColor: 'rgba(255, 235, 59, 0.2)',
                       borderWidth: 1,
                       parsing: {
                           yAxisKey: 'summary_volume.10.m',
