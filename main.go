@@ -40,7 +40,7 @@ func main() {
 		}
 
 		for _, symbol := range symbols {
-			comment.Run(symbol.Symbol, db)
+			comment.Run(symbol, db)
 		}
 		for _, symbol := range symbols {
 			_ = chart.Run(symbol.Symbol, db)
