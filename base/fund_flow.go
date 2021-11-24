@@ -1,7 +1,7 @@
 package base
 
 import (
-	"github.com/iscod/goStock/model"
+	"github.com/iscod/stock/model"
 	"io"
 	"strings"
 )

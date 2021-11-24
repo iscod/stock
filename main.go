@@ -1,11 +1,11 @@
 package main
 
 import (
-	"github.com/iscod/goStock/base"
-	"github.com/iscod/goStock/chart"
-	"github.com/iscod/goStock/detail"
-	"github.com/iscod/goStock/model"
-	"github.com/iscod/goStock/price"
+	"github.com/iscod/stock/base"
+	"github.com/iscod/stock/chart"
+	"github.com/iscod/stock/detail"
+	"github.com/iscod/stock/model"
+	"github.com/iscod/stock/price"
 	"gorm.io/gorm"
 	"time"
 )

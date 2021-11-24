@@ -1,4 +1,4 @@
-# goStock
+# stock
 
 Get, Save for xueqiu.com comment message and price
 

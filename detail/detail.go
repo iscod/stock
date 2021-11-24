@@ -2,8 +2,8 @@ package detail
 
 import (
 	"fmt"
-	"github.com/iscod/goStock/base"
-	"github.com/iscod/goStock/model"
+	"github.com/iscod/stock/base"
+	"github.com/iscod/stock/model"
 	"gorm.io/gorm"
 	"strconv"
 	"strings"

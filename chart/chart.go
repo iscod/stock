@@ -2,7 +2,7 @@ package chart
 
 import (
 	"fmt"
-	"github.com/iscod/goStock/model"
+	"github.com/iscod/stock/model"
 	"gorm.io/gorm"
 	"time"
 )

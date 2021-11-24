@@ -2,7 +2,7 @@ package base
 
 import (
 	"encoding/json"
-	"github.com/iscod/goStock/model"
+	"github.com/iscod/stock/model"
 	"io"
 	"net/http"
 )

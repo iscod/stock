@@ -2,7 +2,7 @@ package base
 
 import (
 	"bytes"
-	"github.com/iscod/goStock/model"
+	"github.com/iscod/stock/model"
 	"io"
 	"io/ioutil"
 	"strings"
