@@ -59,6 +59,7 @@ func Run(symbol string, db *gorm.DB) error {
 	message, err := base.GetFundFlowMessage(symbol)
 	if err != nil {
 		fmt.Printf("Err: %s", err)
+		return err
 	}
 
 	l := len(message.Data.HistoryFundFlow.OneDayKlineList)
