@@ -40,8 +40,9 @@ func main() {
 		}
 
 		for _, symbol := range symbols {
-			//now := time.Now()
 			comment.Run(symbol.Symbol, db)
+		}
+		for _, symbol := range symbols {
 			_ = chart.Run(symbol.Symbol, db)
 		}
 		time.Sleep(time.Minute * 10)
