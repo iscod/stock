@@ -15,13 +15,12 @@ const host string = "https://xueqiu.com"
 const stockhost string = "https://stock.xueqiu.com"
 
 func main() {
-	db, err := model.InitDb()
-	if err != nil {
-		fmt.Printf("%s", err)
-		return
-	}
-
 	for true {
+		db, err := model.InitDb()
+		if err != nil {
+			fmt.Printf("%s", err)
+			return
+		}
 		var symbols []*model.Symbol
 		err = db.Where("status > ?", 0).Find(&symbols).Error
 
