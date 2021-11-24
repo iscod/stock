@@ -61,7 +61,7 @@ func run(symbol string, db *gorm.DB) {
 	//保存评论
 	for _, comment := range comments {
 		if comment.Id != 0 {
-			fmt.Printf("New Comment Username : %s,title: %s, Time: %s\n", comment.User.ScreenName, comment.Title, time.Unix(comment.CreatedAt, 0).Format("2006-01-02 15:04:05"))
+			fmt.Printf("New Comment Username : %s,title: %s, Time: %s\n", comment.User.ScreenName, comment.Title, time.Unix(comment.CreatedAt/1000, 0).Format("2006-01-02 15:04:05"))
 		}
 		if comment.UserId < 0 {
 			comment.UserId = 0
