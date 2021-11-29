@@ -22,8 +22,12 @@ func Run(symbol string, db *gorm.DB) {
 	if err == gorm.ErrRecordNotFound {
 		err = db.Save(quote).Error
 	} else {
-		quote.Id = dest.Id
-		err = db.Save(quote).Error
+		dest.Open = quote.Open
+		dest.Current = quote.Current
+		dest.AvgPrice = quote.AvgPrice
+		dest.Low = quote.Low
+		dest.High = quote.High
+		err = db.Save(dest).Error
 	}
 	fmt.Printf(" %s, %s, 价格: %f, 开盘价: %f, 均价: %f, 最低价: %f, 最高价: %f\n", quote.Name, time.Unix(quote.CreatedAt, 0).Format("2006-01-02 15:04:05"), quote.Current, quote.Open, quote.AvgPrice, quote.Low, quote.High)
 }
